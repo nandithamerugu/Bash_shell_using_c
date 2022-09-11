@@ -4,7 +4,8 @@ int to_check_redirection(char arr[])
 {
     // we need to check weather is their any character is '>' or '<'. If we see them then it should return 1 if no 0.
     int i = 0;
-    while (i < strlen(arr))
+    int len = strlen(arr);
+    while (i < len)
     {
         if (arr[i] == '>')
         {
@@ -23,26 +24,32 @@ int to_check_type(char arr[])
 {
     int val_type = 0;
     int i = 0;
+    char res[100];
     while (i < strlen(arr))
     {
         if (arr[i] == '<') // for input case
         {
+            strcpy(res, "only_input");
             val_type = 1;
         }
         else if (arr[i] == '>' && arr[i + 1] == '>') // for appending
         {
+            strcpy(res, "only_append");
             val_type = 2;
         }
-        else if (arr[i] == '>' && (arr[i] != '>' && arr[i + 1] != '>')) // overwrite and no appending
+        else if (arr[i] == '>' && val_type != 2) // overwrite and no appending
         {
+            strcpy(res, "only_overwrite");
             val_type = 3;
         }
-        else if (arr[i] == '>' && arr[i] != '<') // overwrite with input way
+        else if (arr[i] == '>' && val_type == 1) // overwrite with input way
         {
+            strcpy(res, "input_overwrite");
             val_type = 4;
         }
-        else if (arr[i] == '>' && arr[i + 1] == '>' && arr[i] != '<') // input format along with appending
+        else if (arr[i] == '>' && arr[i + 1] == '>' && val_type == 1) // input format along with appending
         {
+            strcpy(res, "input_append");
             val_type = 5;
             break;
         }
@@ -56,18 +63,19 @@ void write_format(char *arr[])
     pid_t pid = fork();
     if (pid == -1)
     {
-        perror("Error");
+        perror("Creation of child process is unsuccessful");
     }
-    else if (pid == 0)
+    else if (pid == 0) // child is created and returned to it
     {
+        // The first argument is the file you wish to execute, and the second argument is an array of null-terminated strings that represent the appropriate arguments to the file
         int val = execvp(arr[0], arr);
         if (val == -1) // Zero is returned to the child process. (If it fails, the child process is not created.)
         {
-            perror("Child process is not created!");
+            perror("Error");
         }
         exit(0);
     }
-    else
+    else // pid > 0 i.e., returned to parent but the value is the pid of child
     {
         // wait(NULL) will block the parent process until any of its children has finished.
         wait(NULL);
@@ -85,11 +93,10 @@ void redirection(char arr[], char *input)
     inp = strtok(arr, " < >>  > \n");
 
     int i = 0;
-    while (inp != NULL)
+    for (i = 0; inp != NULL; i++)
     {
         temp[i] = inp;
         inp = strtok(NULL, " < >>  > \n");
-        i++;
     }
     int last_index = i;
     int last = last_index - 1;

@@ -17,16 +17,16 @@
 
 - If we enter say if we have Try folder and dummy folder in Try folder.
 
-<nandu@nandu-Inspiron-5590:~> cd Try
-<nandu@nandu-Inspiron-5590:~/Try> cd dummy
-<nandu@nandu-Inspiron-5590:~/Try> cd dummy
-<nandu@nandu-Inspiron-5590:~>
+- <nandu@nandu-Inspiron-5590:~> cd Try
+- <nandu@nandu-Inspiron-5590:~/Try> cd dummy
+- <nandu@nandu-Inspiron-5590:~/Try> cd dummy
+- <nandu@nandu-Inspiron-5590:~>
 
 ## echo command
 
 - This command has to print whatever is written to it.
 - <nandu@nandu-Inspiron-5590:~> echo HI  (will return HI)
-<nandu@nandu-Inspiron-5590:~> echo "HI" (will return HI)
+- <nandu@nandu-Inspiron-5590:~> echo "HI" (will return HI)
 
 - I additionally added the other feature where we keep i.e., if we write the word in quotes then the word is only returned not the quotes(which is similar to that of the normal terminal).
 
@@ -76,7 +76,6 @@
 ./Try
 ./Try/dummy
 ./2020102061_Assignment2
-
 
 
 
